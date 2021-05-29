@@ -1,4 +1,4 @@
-<?php include("php/permiso.php"); //se debe incluir en las paginas que requieran sesion ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
