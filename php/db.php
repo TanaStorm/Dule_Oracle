@@ -1,15 +1,17 @@
 <?php
 #Connection to Oracle - DULE database
-$connection = oci_connect('dule', 'dule123', 'localhost/XE')
+$user = "dule";
+$password = "dule123";
+$host = "localhost/XE";
+
+$connection = oci_connect($user, $password, $host)
 or die(oci_error());
 if(!$connection){
-	echo "Failed to connect to Oracle Dule database. Verify the connection string in php/db.php";
+	echo "Failed: Verify the connection string in db.php";
 }else{
-	//echo "Connection String ready!";
+	//echo "CONNECTED";
 }
-//close conneciton
 oci_close ($connection);
-  
 ?>
 
 

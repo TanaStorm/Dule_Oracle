@@ -110,13 +110,13 @@
 								</div>
 							</div>
 							<div class="w-100"></div>
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<label for="password">Contraseña</label>
 									<input type="password" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}" autocomplete="off" class="form-control" placeholder="5 caracteres (abc y #)" name="contrasena1" id="contrasena1" >
 								</div>
 							</div>
-							<div class="col-md-6">
+							<!-- <div class="col-md-6">
 								<div class="form-group">
 									<label for="provincia">Provincia</label>
 									<select class="form-control" >
@@ -130,7 +130,7 @@
 									  <option value="7">San José</option>
 									</select>
 								  </div>
-							</div>
+							</div> -->
 
 							<div class="w-100"></div>
 							<div class="col-md-12">
