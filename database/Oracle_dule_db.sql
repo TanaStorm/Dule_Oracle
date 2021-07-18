@@ -91,7 +91,7 @@ CREATE TABLE rol(
 CREATE TABLE provincia(
 	idProvincia NUMBER(1) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),
 	provincia VARCHAR2(15),
-	CONSTRAINT PK_provincia PRIMARY KEY (idUsuario)
+	CONSTRAINT PK_provincia PRIMARY KEY (idProvincia)
 );
 
 CREATE TABLE categoria(
@@ -143,6 +143,3 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura1 FOREIGN 
 ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN KEY (subTotal) REFERENCES temp_detalleFactura (subTotal);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
-
-
-
