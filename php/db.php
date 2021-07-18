@@ -1,18 +1,14 @@
 <?php
-$con = mysqli_connect("localhost","dule","dule123","dule");
-// Check connection
-if (mysqli_connect_errno())
-  {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-  function debug_to_console($data) {
-		$output = $data;
-		if (is_array($output))
-			$output = implode(',', $output);
-	
-		echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-	}
+#Connection to Oracle - DULE database
+$connection = oci_connect('dule', 'dule123', 'localhost/XE')
+or die(oci_error());
+if(!$connection){
+	echo "Failed to connect to Oracle Dule database. Verify the connection string in php/db.php";
+}else{
+	//echo "Connection String ready!";
+}
+//close conneciton
+oci_close ($connection);
   
 ?>
 

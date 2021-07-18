@@ -12,7 +12,8 @@ if (isset($_POST['registro'])) {
          $contrasena1 = trim($_POST['contrasena1']);
 	    $direccion = trim($_POST['direccion']);
 	//     $fechareg = date("d/m/y");
-	    $consulta = "INSERT INTO usuario(idRol, nombre, apellido, tel, email, contrasena, direccion) VALUES (1,'$nombre', '$apellido', '$tel', '$email', MD5('$contrasena1'),'$direccion')";
+	    $consulta = "INSERT INTO usuario(idRol, nombre, apellido, tel, email, contrasena, direccion) VALUES (1,'$nombre', '$apellido', '$tel', '$email', '$contrasena1','$direccion')";
+		//$consulta = "INSERT INTO usuario(idRol, nombre, apellido, tel, email, contrasena, direccion) VALUES (1,'$nombre', '$apellido', '$tel', '$email', MD5('$contrasena1'),'$direccion')";
 	    $resultado = mysqli_query($con,$consulta);
 	    if ($resultado) {
 	    	?> 
