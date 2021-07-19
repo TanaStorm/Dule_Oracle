@@ -1,5 +1,5 @@
 <?php 
- include_once('php/conexion.php'); 
+ include("php/db.php"); 
  include 'carrito.php';?>
 
 <!DOCTYPE html>
@@ -20,8 +20,6 @@
 <body>
    <!-- Navbar -->
    <?php include_once('navbar.php'); ?>
-   
-  
 
   <section class="ftco-section-shop">
   </section>
@@ -55,26 +53,23 @@
 			$dbname = "dule";
 			
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
-			// Check connection
-			if ($conn->connect_error) {
-				die("Connection failed: " . $conn->connect_error);
-			} 
-			
-			$sql = "SELECT *FROM producto";
-			$result = $conn->query($sql);
-			$row = $result->fetch_all(MYSQLI_ASSOC);
-			
+			$connection  = oci_connect($user, $password, $host);
+			$sql = "SELECT * FROM producto";
+			$parse = oci_parse($connection, $sql);
+			oci_execute($parse);
+			//$sql = "SELECT *FROM producto";
+			//$result = $conn->query($sql);
+			$rows = oci_fetch_all($parse, $res);
+			oci_free_statement($parse);
+			var_dump($res);
 			?>
-			<?php foreach($row as $producto){?>
+			<?php foreach($res as $producto){?>
 				<div class="col-md-3">
-								
-
 								<div class="card text-center bg-transparent border-white">
 									<img class="card-img-top" src="<?php echo $producto['imagen'];?>" alt="aceite_coco">
 									<div class="card-body">
 									  <h5 class="card-title"><?php echo $producto['producto'];?></h5>
-									  <p><span>₡<?php echo $producto['precioUnitario'];?></span></p>
+									  <p><span>₡<?php echo $producto['preciounitario'];?></span></p>
 
 									 <form action="" method="post"> 
 									  <input type="hidden" name="id" id="id"value="<?php echo $producto['idProducto'];?>">
@@ -83,23 +78,11 @@
 									  <input type="number" class="form-control" name="cantidad" id="cantidad"value="<?php echo  1;?>">
 									  <br>
 									  <br>
-									  <button name ="btnAccion" 
-									  value="Agregar" 
-									  type="submit" 
-									  class="btn btn-primary"
-									  >
-									  Agregar 
-									</button>
-			</button>
-			</form>
+									  <button name ="btnAccion" value="Agregar" type="submit" class="btn btn-primary">Agregar </button>
+									  </button>
+									</form>
 									</div>
-								  </div>
-									
-								
-
-
-									
-								
+								  </div>		
 							</div>
 			<?php } ?>
 							
