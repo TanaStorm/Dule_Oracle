@@ -4,78 +4,22 @@
 /* FECHA: 17/07/2021                                
 /*==========================================================================
 
-/*
-CREAR RUTAS en la pc/server :
-C:\ORACLE
-C:\ORACLE\PROYECTO
-C:\ORACLE\PROYECTO\TEMP
-C:\ORACLE\PROYECTO\DATOS
-*/
-
--- TABLESPACE
-CONNECT SYS/ORACLE AS SYSDBA;
-
-CREATE TABLESPACE DULE
-DATAFILE 'C:\ORACLE\PROYECTO\DATOS\DATOSDULE.DBF’
-SIZE 20M AUTOEXTEND ON NEXT 64K
-MAXSIZE 100M;
-
-CREATE TEMPORARY TABLESPACE TEMP_DULE
-TEMPFILE 'C:\ORACLE\PROYECTO\TEMP\TEMPDULE.DBF’
-SIZE 32M AUTOEXTEND ON NEXT 128K
-MAXSIZE 100M;
-
-/*Alterar session antes de ejecutar script*/
-alter session set "_oracle_script"=true;
-
-
-/*Crear Profile*/
-CREATE PROFILE PROFILE_DULE LIMIT
-SESSIONS_PER_USER UNLIMITED
-CPU_PER_SESSION   UNLIMITED
-FAILED_LOGIN_ATTEMPTS 1000;
-
-
--- Role: Administrador ; 
-CREATE ROLE ROLE_ADMIN;
-GRANT CONNECT TO ROLE_ADMIN;
-GRANT RESOURCE TO ROLE_ADMIN;
-
-
--- CREACION DE USUARIO Y ASIGNAR PROFILE (Permisos de Administrador)
-CREATE USER DULE IDENTIFIED BY dule123
-DEFAULT TABLESPACE DULE
-TEMPORARY TABLESPACE TEMP_DULE
-PROFILE PROFILE_DULE;
-GRANT CREATE SESSION TO DULE;
-GRANT DBA TO DULE;
-GRANT ROLE_ADMIN TO DULE;
-ALTER USER DULE quota unlimited on DULE;
-
-/* Habilitar rights para ejecutar cualquier script*/
-DULE/123 as sysdba
-CONNECT DULE/123
-ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE; 
-
-
 /*Create tables*/
 
 CREATE TABLE usuario (
-  idUsuario NUMBER(20) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),  
-	nombre VARCHAR2(100) NOT NULL,
-	apellido VARCHAR2(100) NOT NULL,
-	tel VARCHAR2(20) NOT NULL,
-	email VARCHAR2(100) NOT NULL,
-	contrasena VARCHAR2(8) NOT NULL,
-	direccion VARCHAR2(255),
-	tarjeta VARCHAR2(50),
-	fechaVence DATE,
-	idProvincia NUMBER(1) NOT NULL,
-	idRol NUMBER(20) NOT NULL,
+    idUsuario NUMBER(20) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),  
+	idRol NUMBER(10),
+	nombre VARCHAR2(50),
+	apellido VARCHAR2(50),
+	tel VARCHAR2(30),
+	email VARCHAR2(50),
+	contrasena VARCHAR2(255),
+	direccion VARCHAR2(255)
 	CONSTRAINT PK_usuario PRIMARY KEY (idUsuario)
 );
+
 CREATE TABLE usuarioEliminado (
-  idUsuario NUMBER(20) NOT NULL,  
+    idUsuario NUMBER(20) NOT NULL,  
 	email VARCHAR2(100) NOT NULL,
 	fechaEliminado DATE NOT NULL,
 	CONSTRAINT PK_usuarioEliminado PRIMARY KEY (idUsuario)
@@ -88,15 +32,9 @@ CREATE TABLE rol(
   CONSTRAINT PK_rol PRIMARY KEY (idRol)
 );
 
-CREATE TABLE provincia(
-	idProvincia NUMBER(1) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),
-	provincia VARCHAR2(15),
-	CONSTRAINT PK_provincia PRIMARY KEY (idProvincia)
-);
-
 CREATE TABLE categoria(
 	idCategoria NUMBER(10) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),
-	provincia VARCHAR2(50) NOT NULL,
+	categoria VARCHAR2(50) NOT NULL,
 	CONSTRAINT PK_categoria PRIMARY KEY (idCategoria)
 );
 
@@ -131,6 +69,8 @@ CREATE TABLE factura(
 	total NUMBER (10,2) NOT NULL,
 	fechaVenta DATE NOT NULL
 );
+
+--Crear los FK hasta tener la version final de las tablas
 
 ALTER TABLE usuario ADD CONSTRAINT fk_usuario_provincia FOREIGN KEY (idProvincia) REFERENCES provincia (idProvincia);
 ALTER TABLE usuario ADD CONSTRAINT fk_usuario_rol FOREIGN KEY (idRol) REFERENCES rol (idRol);
