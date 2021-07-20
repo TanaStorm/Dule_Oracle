@@ -34,7 +34,7 @@
 	<div class="alert alert-success">
 		<?php echo $mensaje;?>
 		<a href="cart.php" class="badge badge-success">Ver carrito</a>
-</div>
+	</div>
 <?php }?>
 		<div class="container-fluid">
 			
@@ -45,8 +45,7 @@
                         
 						<div class="row align-items-end">
 
-				<?php
-						
+					<?php	
 					$servername = "localhost";
 					$username = "dule";
 					$password = "dule123";
@@ -57,20 +56,15 @@
 					$sql = "SELECT * FROM producto";
 				$parse = oci_parse($connection, $sql);
 			oci_execute($parse);
-			$rows = oci_fetch_all($parse, $res);
 	
-			oci_free_statement($parse);
-			
-			var_dump($res);
 				?>
-			<?php foreach ($res as $col) {
-			foreach($col as $producto){?>
+			<?php while (oci_fetch($parse)) {?>
 				<div class="col-md-3">
 								<div class="card text-center bg-transparent border-white">
-									<img class="card-img-top" src="<?php echo $producto['IMAGEN'];?>" alt="aceite_coco">
+									<img class="card-img-top" src="<?php echo $producto?>" alt="PRODUCTO">
 									<div class="card-body">
-									  <h5 class="card-title"><?php($producto !== null ? htmlentities($producto, ENT_QUOTES) : "")?></h5>
-									  <p><span>₡<?php echo ($producto !== null ? htmlentities($producto, ENT_QUOTES) : "")?></span></p>
+									  <h5 class="card-title"><?php echo oci_result($parse, 'PRODUCTO')?></h5>
+									  <p><span>₡<?php echo oci_result($parse, 'PRECIOUNITARIO');?></span></p>
 									 <form action="" method="post"> 
 									  <input type="hidden" name="id" id="id"value="<?php echo $producto['IDPRODUCTO'];?>">
 									  <input type="hidden" name="nombre" id="nombre" value="<?php echo  $producto['PRODUCTO'];?>">
@@ -85,9 +79,9 @@
 								  </div>		
 					</div>
 			<?php } 
-		}?>
+		?>
 							
-							
+							 
 							
                         
 					</div>
@@ -107,6 +101,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 
   
