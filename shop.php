@@ -45,36 +45,36 @@
                         
 						<div class="row align-items-end">
 
-			<?php
+				<?php
 						
-			$servername = "localhost";
-			$username = "dule";
-			$password = "dule123";
-			$dbname = "dule";
+					$servername = "localhost";
+					$username = "dule";
+					$password = "dule123";
+					$dbname = "dule";
 			
-			// Create connection
-			$connection  = oci_connect($user, $password, $host);
-			$sql = "SELECT * FROM producto";
-			$parse = oci_parse($connection, $sql);
+					// Create connection
+					$connection  = oci_connect($user, $password, $host);
+					$sql = "SELECT * FROM producto";
+				$parse = oci_parse($connection, $sql);
 			oci_execute($parse);
-			//$sql = "SELECT *FROM producto";
-			//$result = $conn->query($sql);
 			$rows = oci_fetch_all($parse, $res);
+	
 			oci_free_statement($parse);
+			
 			var_dump($res);
-			?>
-			<?php foreach($res as $producto){?>
+				?>
+			<?php foreach ($res as $col) {
+			foreach($col as $producto){?>
 				<div class="col-md-3">
 								<div class="card text-center bg-transparent border-white">
-									<img class="card-img-top" src="<?php echo $producto['imagen'];?>" alt="aceite_coco">
+									<img class="card-img-top" src="<?php echo $producto['IMAGEN'];?>" alt="aceite_coco">
 									<div class="card-body">
-									  <h5 class="card-title"><?php echo $producto['producto'];?></h5>
-									  <p><span>₡<?php echo $producto['preciounitario'];?></span></p>
-
+									  <h5 class="card-title"><?php($producto !== null ? htmlentities($producto, ENT_QUOTES) : "")?></h5>
+									  <p><span>₡<?php echo ($producto !== null ? htmlentities($producto, ENT_QUOTES) : "")?></span></p>
 									 <form action="" method="post"> 
-									  <input type="hidden" name="id" id="id"value="<?php echo $producto['idProducto'];?>">
-									  <input type="hidden" name="nombre" id="nombre" value="<?php echo  $producto['producto'];?>">
-									  <input type="hidden" name="precio" id="precio"value="<?php echo $producto['precioUnitario'];?>">
+									  <input type="hidden" name="id" id="id"value="<?php echo $producto['IDPRODUCTO'];?>">
+									  <input type="hidden" name="nombre" id="nombre" value="<?php echo  $producto['PRODUCTO'];?>">
+									  <input type="hidden" name="precio" id="precio"value="<?php echo $producto['PRECIOUNITARIO'];?>">
 									  <input type="number" class="form-control" name="cantidad" id="cantidad"value="<?php echo  1;?>">
 									  <br>
 									  <br>
@@ -83,8 +83,9 @@
 									</form>
 									</div>
 								  </div>		
-							</div>
-			<?php } ?>
+					</div>
+			<?php } 
+		}?>
 							
 							
 							
