@@ -20,7 +20,7 @@
 <body>
    <!-- Navbar -->
    <?php include_once('navbar.php'); ?>
-
+   <?php include("php/showFactura.php"); ?>
   <section class="ftco-section-shop">
   </section>
 
@@ -66,13 +66,13 @@
 									  <h5 class="card-title"><?php echo oci_result($parse, 'PRODUCTO')?></h5>
 									  <p><span>₡<?php echo oci_result($parse, 'PRECIOUNITARIO');?></span></p>
 									 <form action="" method="post"> 
-									  <input type="hidden" name="id" id="id"value="<?php echo $producto['IDPRODUCTO'];?>">
-									  <input type="hidden" name="nombre" id="nombre" value="<?php echo  $producto['PRODUCTO'];?>">
-									  <input type="hidden" name="precio" id="precio"value="<?php echo $producto['PRECIOUNITARIO'];?>">
+									  <input type="hidden" name="id" id="id"value="<?php echo oci_result($parse, 'IDPRODUCTO')?>">
+									  <input type="hidden" name="nombre" id="nombre" value="<?php echo oci_result($parse, 'PRODUCTO')?>">
+									  <input type="hidden" name="precio" id="precio"value="<?php echo oci_result($parse, 'PRECIOUNITARIO');?>">
 									  <input type="number" class="form-control" name="cantidad" id="cantidad"value="<?php echo  1;?>">
 									  <br>
 									  <br>
-									  <button name ="btnAccion" value="Agregar" type="submit" class="btn btn-primary">Agregar </button>
+									  <input class="btn btn-primary py-3 px-4" type="submit"  value="Agregar" name="agregar" id="agregar" /> 
 									  </button>
 									</form>
 									</div>
