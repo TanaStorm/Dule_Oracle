@@ -29,18 +29,15 @@
     // If form submitted, insert values into the database.
     if (isset($_POST['username'])){
 		
-		$username = stripslashes($_REQUEST['username']); // removes backslashes
-		$username = mysqli_real_escape_string($con,$username); //escapes special characters in a string
-		$password = stripslashes($_REQUEST['password']);
-		$password = mysqli_real_escape_string($con,$password);
-		debug_to_console($username);
-		debug_to_console($password);
-		
+		$username = $_POST['username']; // removes backslashes
+		$password = $_POST['password'];
+		$count = 0;	
 	//Checking is user existing in the database or not
-        $query = "SELECT * FROM `usuario` WHERE email='$username' and contrasena='".md5($password)."'";
-		$result = mysqli_query($con,$query) or die(mysql_error());
-		$rows = mysqli_num_rows($result);
-        if($rows==1){
+        $query = "BEGIN p_login_DULE('$username','$password',:count); END;";
+		$result = oci_parse($connection,$query) or die(oci_error());
+		oci_bind_by_name($result, ":count", $count);
+		oci_execute($result);
+        if($count==1){
 			$_SESSION['username'] = $username;
 			header("Location: cart.php"); // Redirect user to index.php
             }else{

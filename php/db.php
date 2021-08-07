@@ -11,7 +11,7 @@ if(!$connection){
 }else{
 	//echo "CONNECTED";
 }
-oci_close ($connection);
+//oci_close ($connection);
 ?>
 
 

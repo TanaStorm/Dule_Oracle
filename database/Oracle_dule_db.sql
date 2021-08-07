@@ -83,3 +83,9 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura1 FOREIGN 
 ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN KEY (subTotal) REFERENCES temp_detalleFactura (subTotal);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
+
+CREATE OR REPLACE PROCEDURE p_login_DULE (V_EMAIL IN VARCHAR2, V_PASSWORD IN VARCHAR2, V_COUNT OUT NUMBER)  AS
+BEGIN
+SELECT COUNT(*) INTO V_COUNT FROM USUARIO u
+WHERE u.email=V_EMAIL AND u.contrasena=V_PASSWORD;
+END;
