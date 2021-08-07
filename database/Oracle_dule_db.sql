@@ -7,7 +7,7 @@
 /*Create tables*/
 
 CREATE TABLE usuario (
-    idUsuario NUMBER(20) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),  
+    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
 	idRol NUMBER(10),
 	nombre VARCHAR2(50),
 	apellido VARCHAR2(50),
@@ -18,35 +18,71 @@ CREATE TABLE usuario (
 	CONSTRAINT PK_usuario PRIMARY KEY (idUsuario)
 );
 
-CREATE TABLE usuarioEliminado (
-    idUsuario NUMBER(20) NOT NULL,  
-	email VARCHAR2(100) NOT NULL,
-	fechaEliminado DATE NOT NULL,
-	CONSTRAINT PK_usuarioEliminado PRIMARY KEY (idUsuario)
-);
-
-
+-------------------------------------------------------------
 CREATE TABLE rol(
-  idRol NUMBER(10) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),
+  idRol NUMBER GENERATED ALWAYS AS IDENTITY,
   rol VARCHAR2(20) NOT NULL,
   CONSTRAINT PK_rol PRIMARY KEY (idRol)
 );
 
+BEGIN 
+INSERT INTO ROL (rol) VALUES ( 'Cliente');
+INSERT INTO ROL (rol) VALUES ( 'Administrador');
+END;
+
+--------------------------------------------------------------
+
 CREATE TABLE categoria(
-	idCategoria NUMBER(10) GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1),
+	idCategoria NUMBER GENERATED ALWAYS AS IDENTITY,
 	categoria VARCHAR2(50) NOT NULL,
 	CONSTRAINT PK_categoria PRIMARY KEY (idCategoria)
 );
 
+BEGIN 
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Abarrotes');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Carnes y mariscos');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Cuidado personal');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Frutas y Verduras');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Lacteos y embutidos');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Limpieza');
+INSERT INTO CATEGORIA (categoria) VALUES ( 'Mascotas');
+END;
+
+-----------------------------------------------------------------
+
 CREATE TABLE producto(
-	idProducto NUMBER(10) NOT NULL,
+	idProducto NUMBER GENERATED ALWAYS AS IDENTITY,
 	producto VARCHAR2(100) NOT NULL,
 	precioUnitario NUMBER(10,2) NOT NULL,
 	existencias NUMBER (20) NOT NULL,
-	imagen VARCHAR2(200) NOT NULL,
-	idCategoria NUMBER(10) NOT NULL,
+	imagen VARCHAR2(200) NULL,
+	idCategoria NUMBER(10) NULL,
 	CONSTRAINT PK_producto PRIMARY KEY (idProducto)
 );
+
+BEGIN
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Café Tamarindo', 2000, 100, '../img/products/tamarindo-coffee-roasters-organic.jpg', 1);
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Toallas Bamboo', 5000, 5, '../img/products/bamboo-eco-towels.jpg',6 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pan Sesamo', 7000, 5, '../img/products/Bread_Sesame.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Curitas', 6000, 5, '../img/products/carbon_banditas.jpg',6);
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Exfoliante', 10000, 6, '../img/products/carbon_body_scrub.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pasta Dental', 10000, 6, '../img/products/carbon_dental.jpeg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Carbón en polvo', 10000, 6, '../img/products/carbon_polvo.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Cepillo', 2000, 6, '../img/products/cepillo.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Kit Cepillo', 10000, 6, '../img/products/cepillo_dental.png',7 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Queso', 10000, 6, '../img/products/Cheese.png',5 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Dip', 6000, 6, '../img/products/Dip.png',5 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Rollo Bamboo', 10000, 6, '../img/products/rolled-bamboo.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Tapa de dulce', 10000, 6, '../img/products/dulce-tapa.jpeg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Papel Higiénico', 10000, 6, '../img/products/toilet-paper-colouring.png',6 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aplicadores', 1000, 6, '../img/products/aplicadores.png',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Azafran', 10000, 6, '../img/products/azafran.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aloe', 8000, 6, '../img/products/aloe.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aceite de coco', 5000, 6, '../img/products/aceite_coco.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Mantequilla Aloe', 30000, 6, '../img/products/aloe_butter.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Gel Aloe', 3000, 6, '../img/products/aloe_gel.jpg',3 );
+END;
+
 
 CREATE TABLE temp_detalleFactura(
 	idUsuario NUMBER(20) NOT NULL,
@@ -70,6 +106,14 @@ CREATE TABLE factura(
 	fechaVenta DATE NOT NULL
 );
 
+--Bitacora
+CREATE TABLE usuarioEliminado (
+    idUsuario NUMBER(20) NOT NULL,  
+	email VARCHAR2(100) NOT NULL,
+	fechaEliminado DATE NOT NULL,
+	CONSTRAINT PK_usuarioEliminado PRIMARY KEY (idUsuario)
+);
+
 --Crear los FK hasta tener la version final de las tablas
 
 ALTER TABLE usuario ADD CONSTRAINT fk_usuario_provincia FOREIGN KEY (idProvincia) REFERENCES provincia (idProvincia);
@@ -84,6 +128,43 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN 
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
 
+---**************************** FUNCIONES (Luis Navarro)
+
+--1. Calculo de Precio de producto x la cantidad. (En la tabla de cart.php)
+CREATE OR REPLACE FUNCTION sumaTotal  
+RETURN number IS  
+   total number:= 0;  
+BEGIN  
+   SELECT sum(cantidad*preciounitario) into total  
+   FROM temp_detallefactura;  
+    RETURN total;  
+END;  
+
+--2. Suma total de los productos (suma de resultados de funcion 1, En la tabla de cart.php)
+CREATE OR REPLACE FUNCTION totalMonto
+RETURN number IS  
+   total number(2);  
+begin
+
+for c in (SELECT cantidad*preciounitario into total  
+   FROM temp_detallefactura)
+
+loop
+    RETURN total;  
+end loop;
+END;  
+
+
+---**************************** TRIGGERS (Karen Delgado)
+--
+--Quizas algo para eliminar usuarios....y agregarlo a una bitacora
+
+--Click btn PAGAR ? trigger que ejecute el stored proc?
+
+
+
+---**************************** PROCEDURES (Esteban Salas)
+--Explicacion?
 CREATE OR REPLACE PROCEDURE p_login_DULE (V_EMAIL IN VARCHAR2, V_PASSWORD IN VARCHAR2, V_COUNT OUT NUMBER)  AS
 BEGIN
 SELECT COUNT(*) INTO V_COUNT FROM USUARIO u
