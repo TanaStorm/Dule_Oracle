@@ -39,7 +39,7 @@
 		oci_execute($result);
         if($count==1){
 			$_SESSION['username'] = $username;
-			header("Location: cart.php"); // Redirect user to index.php
+			header("Location: shop.php"); // Redirect user to shop.php
             }else{
 				echo "<br/><div class='form'><h3>El usuario o la contraseña son incorrectos</h3>
 				<br/>Haga clic para intentarlo de nuevo to <a href='login.php'>Inicio de sesión</a></div>";

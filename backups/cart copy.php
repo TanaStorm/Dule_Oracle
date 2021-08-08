@@ -1,4 +1,4 @@
-<?php include_once('php/conexion.php'); 
+<?php include_once('php/db.php'); 
  include 'carrito.php';?>
 <!DOCTYPE html>
 <html lang="en">
