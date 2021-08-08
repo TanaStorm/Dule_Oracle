@@ -61,27 +61,29 @@ CREATE TABLE producto(
 );
 
 BEGIN
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Café Tamarindo', 2000, 100, '../img/products/tamarindo-coffee-roasters-organic.jpg', 1);
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Toallas Bamboo', 5000, 5, '../img/products/bamboo-eco-towels.jpg',6 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pan Sesamo', 7000, 5, '../img/products/Bread_Sesame.png',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Curitas', 6000, 5, '../img/products/carbon_banditas.jpg',6);
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Exfoliante', 10000, 6, '../img/products/carbon_body_scrub.jpg',3 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pasta Dental', 10000, 6, '../img/products/carbon_dental.jpeg',3 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Carbón en polvo', 10000, 6, '../img/products/carbon_polvo.jpg',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Cepillo', 2000, 6, '../img/products/cepillo.png',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Kit Cepillo', 10000, 6, '../img/products/cepillo_dental.png',7 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Queso', 10000, 6, '../img/products/Cheese.png',5 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Dip', 6000, 6, '../img/products/Dip.png',5 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Rollo Bamboo', 10000, 6, '../img/products/rolled-bamboo.jpg',3 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Tapa de dulce', 10000, 6, '../img/products/dulce-tapa.jpeg',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Papel Higiénico', 10000, 6, '../img/products/toilet-paper-colouring.png',6 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aplicadores', 1000, 6, '../img/products/aplicadores.png',3 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Azafran', 10000, 6, '../img/products/azafran.png',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aloe', 8000, 6, '../img/products/aloe.jpg',3 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aceite de coco', 5000, 6, '../img/products/aceite_coco.jpg',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Mantequilla Aloe', 30000, 6, '../img/products/aloe_butter.jpg',1 );
-INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Gel Aloe', 3000, 6, '../img/products/aloe_gel.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Café Tamarindo', 2000, 100, './img/products/tamarindo-coffee-roasters-organic.jpg', 1);
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Toallas Bamboo', 5000, 5, './img/products/bamboo-eco-towels.jpg',6 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pan Sesamo', 7000, 5, './img/products/Bread_Sesame.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Curitas', 6000, 5, './img/products/carbon_banditas.jpg',6);
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Exfoliante', 10000, 6, './img/products/carbon_body_scrub.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Pasta Dental', 10000, 6, './img/products/carbon_dental.jpeg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Carbón en polvo', 10000, 6, './img/products/carbon_polvo.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Cepillo', 2000, 6, './img/products/cepillo.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Kit Cepillo', 10000, 6, './img/products/cepillo_dental.png',7 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Queso', 10000, 6, './img/products/Cheese.png',5 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Dip', 6000, 6, './img/products/Dip.png',5 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Rollo Bamboo', 10000, 6, './img/products/rolled-bamboo.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Tapa de dulce', 10000, 6, './img/products/dulce-tapa.jpeg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Papel Higiénico', 10000, 6, './img/products/toilet-paper-colouring.png',6 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aplicadores', 1000, 6, './img/products/aplicadores.png',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Azafran', 10000, 6, './img/products/azafran.png',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aloe', 8000, 6, './img/products/aloe.jpg',3 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Aceite de coco', 5000, 6, './img/products/aceite_coco.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Mantequilla Aloe', 30000, 6, './img/products/aloe_butter.jpg',1 );
+INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Gel Aloe', 3000, 6, './img/products/aloe_gel.jpg',3 );
 END;
+
+commit;
 
 
 CREATE TABLE temp_detalleFactura(

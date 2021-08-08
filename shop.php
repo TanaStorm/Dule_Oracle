@@ -1,5 +1,5 @@
 <?php 
- include('php/db.php'); 
+ include("php/db.php"); 
  include 'carrito.php';?>
 
 <!DOCTYPE html>
@@ -23,7 +23,11 @@
    <?php include("php/showFactura.php"); ?>
   <section class="ftco-section-shop">
   </section>
+
+
   <!-- Lista con checkbox: https://getbootstrap.com/docs/4.0/components/forms/ -->
+
+
   <section class="ftco-section ">
 
   <?php if($mensaje!=""){?>
@@ -36,14 +40,13 @@
 			
 			<div class="row">
 				<div class="col-xl-12 ftco-animate">
-					<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">                      
+					<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
+						
+                        
 						<div class="row align-items-end">
+
 					<?php	
-					$servername = "localhost";
-					$username = "dule";
-					$password = "dule123";
-					$dbname = "dule";
-			
+				
 					// Create connection
 					$connection  = oci_connect($user, $password, $host);
 					$sql = "SELECT * FROM producto";
@@ -54,7 +57,7 @@
 			<?php while (oci_fetch($parse)) {?>
 				<div class="col-md-3">
 								<div class="card text-center bg-transparent border-white">
-									<img class="card-img-top" src="<?php echo $producto?>" alt="PRODUCTO">
+									<img class="card-img-top" src="<?php echo oci_result($parse, 'IMAGEN')?>" alt="PRODUCTO"> 
 									<div class="card-body">
 									  <h5 class="card-title"><?php echo oci_result($parse, 'PRODUCTO')?></h5>
 									  <p><span>₡<?php echo oci_result($parse, 'PRECIOUNITARIO');?></span></p>
@@ -72,6 +75,7 @@
 								  </div>		
 					</div>
 			<?php } 
+		
 		?>
 							
 							 
@@ -79,13 +83,8 @@
                         
 					</div>
 				</div>
-				<div class="col-xl-4 sidebar ftco-animate">
-					
-					
-					
-						
+				<div class="col-xl-4 sidebar ftco-animate">	
 					</div>
-					
 					<div class="sidebar-box ftco-animate">
 						<h3>Frase del día</h3>
 						<p>¡Dime cómo comes y te diré cómo eres!</p>
@@ -130,4 +129,3 @@
 </body>
 
 </html>
-© 2021 GitHub, Inc.
