@@ -98,12 +98,17 @@ CREATE TABLE factura(
 	fechaVenta DATE NOT NULL
 );
 
---Bitacora (Backend) No existe vista admin (Trigger)
-CREATE TABLE usuarioEliminado (
-    idUsuario NUMBER(20) NOT NULL,  
-	email VARCHAR2(100) NOT NULL,
-	fechaEliminado DATE NOT NULL,
-	CONSTRAINT PK_usuarioEliminado PRIMARY KEY (idUsuario)
+--BitacoraUsuarios (actualizado, eliminado)(Backend)
+CREATE TABLE bitacoraUsuario (
+    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
+	idRol NUMBER(10),
+	nombre VARCHAR2(50),
+	apellido VARCHAR2(50),
+	tel VARCHAR2(30),
+	email VARCHAR2(50),
+	contrasena VARCHAR2(255),
+	direccion VARCHAR2(255),
+	flag VARCHAR2(255)
 );
 
 --Crear los FK hasta tener la version final de las tablas
@@ -148,8 +153,18 @@ END;
 
 
 ---**************************** TRIGGERS (Karen Delgado)
---Quizas algo para eliminar usuarios o productos....y agregarlo a una bitacora
-
+--ADD or UPDATE
+ CREATE TABLE bitacoraUsuario (
+    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
+	idRol NUMBER(10),
+	nombre VARCHAR2(50),
+	apellido VARCHAR2(50),
+	tel VARCHAR2(30),
+	email VARCHAR2(50),
+	contrasena VARCHAR2(255),
+	direccion VARCHAR2(255),
+	flag VARCHAR2(255)
+);
 
 ---**************************** PROCEDURES (Esteban Salas) + Cursor
 
