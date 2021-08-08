@@ -14,7 +14,7 @@ CREATE TABLE usuario (
 	tel VARCHAR2(30),
 	email VARCHAR2(50),
 	contrasena VARCHAR2(255),
-	direccion VARCHAR2(255)
+	direccion VARCHAR2(255),
 	CONSTRAINT PK_usuario PRIMARY KEY (idUsuario)
 );
 
@@ -100,13 +100,15 @@ CREATE TABLE temp_factura(
 	total NUMBER (10,2) NOT NULL
 );
 
+-----------------------------------------------------
+
 CREATE TABLE factura(
 	idUsuario NUMBER(20) NOT NULL,
 	total NUMBER (10,2) NOT NULL,
 	fechaVenta DATE NOT NULL
 );
 
---Bitacora
+--Bitacora (Backend) No existe vista admin (Trigger)
 CREATE TABLE usuarioEliminado (
     idUsuario NUMBER(20) NOT NULL,  
 	email VARCHAR2(100) NOT NULL,
@@ -130,7 +132,7 @@ ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) 
 
 ---**************************** FUNCIONES (Luis Navarro)
 
---1. Calculo de Precio de producto x la cantidad. (En la tabla de cart.php)
+--1. Calculo de Precio de producto x la cantidad. (Modificar codigo en cart.php)
 CREATE OR REPLACE FUNCTION sumaTotal  
 RETURN number IS  
    total number:= 0;  
@@ -140,7 +142,7 @@ BEGIN
     RETURN total;  
 END;  
 
---2. Suma total de los productos (suma de resultados de funcion 1, En la tabla de cart.php)
+--2. Suma total de los productos (Modificar codigo en cart.php)
 CREATE OR REPLACE FUNCTION totalMonto
 RETURN number IS  
    total number(2);  
@@ -156,17 +158,16 @@ END;
 
 
 ---**************************** TRIGGERS (Karen Delgado)
---
---Quizas algo para eliminar usuarios....y agregarlo a una bitacora
-
---Click btn PAGAR ? trigger que ejecute el stored proc?
+--Quizas algo para eliminar usuarios o productos....y agregarlo a una bitacora
 
 
+---**************************** PROCEDURES (Esteban Salas) + Cursor
 
----**************************** PROCEDURES (Esteban Salas)
---Explicacion?
+--Login
 CREATE OR REPLACE PROCEDURE p_login_DULE (V_EMAIL IN VARCHAR2, V_PASSWORD IN VARCHAR2, V_COUNT OUT NUMBER)  AS
 BEGIN
 SELECT COUNT(*) INTO V_COUNT FROM USUARIO u
 WHERE u.email=V_EMAIL AND u.contrasena=V_PASSWORD;
 END;
+
+--Exceptions

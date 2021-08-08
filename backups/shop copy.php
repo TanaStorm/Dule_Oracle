@@ -1,5 +1,5 @@
 <?php 
- include('php/db.php'); 
+ include("php/db.php"); 
  include 'carrito.php';?>
 
 <!DOCTYPE html>
@@ -23,7 +23,11 @@
    <?php include("php/showFactura.php"); ?>
   <section class="ftco-section-shop">
   </section>
+
+
   <!-- Lista con checkbox: https://getbootstrap.com/docs/4.0/components/forms/ -->
+
+
   <section class="ftco-section ">
 
   <?php if($mensaje!=""){?>
@@ -36,8 +40,11 @@
 			
 			<div class="row">
 				<div class="col-xl-12 ftco-animate">
-					<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">                      
+					<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
+						
+                        
 						<div class="row align-items-end">
+
 					<?php	
 					$servername = "localhost";
 					$username = "dule";
@@ -130,4 +137,3 @@
 </body>
 
 </html>
-© 2021 GitHub, Inc.
