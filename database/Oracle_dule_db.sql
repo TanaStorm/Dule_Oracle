@@ -82,7 +82,7 @@ INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria
 INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Mantequilla Aloe', 30000, 6, './img/products/aloe_butter.jpg',1 );
 INSERT INTO PRODUCTO (producto, precioUnitario, existencias, imagen, idCategoria) VALUES ('Gel Aloe', 3000, 6, './img/products/aloe_gel.jpg',3 );
 END;
-
+--URGENT: SIN EL COMMIT NO SE CARGAN LAS IMAGENES
 commit;
 
 
