@@ -25,18 +25,24 @@ CREATE TABLE bitacoraUsuario (
 	tel VARCHAR2(30),
 	email VARCHAR2(50),
 	contrasena VARCHAR2(255),
-	direccion VARCHAR2(255)
+	direccion VARCHAR2(255),
+    FECHA DATE NULL,
+    ACCION VARCHAR2(12) NULL
 );
 
 select * from BitacoraUsuario;
 
 
 CREATE OR REPLACE TRIGGER tr_bitacoraUsuario
-AFTER DELETE ON usuario
+AFTER UPDATE OR DELETE ON USUARIO
+FOR EACH ROW
 BEGIN
-insert into bitacoraUsuario  values (idUsuario,idRol,nombre,apellido,tel,email,contrasena,direccion);
---insert into tr_bitacoraUsuario  values (:old.idUsuario,:old.idRol, :old.nombre,:old.apellido,:old.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'DELETE');
-END;
+if updating then
+insert into bitacoraUsuario  values (:old.idUsuario,:new.idRol, :new.nombre,:new.apellido,:new.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'UPDATE');
+Elsif deleting then
+insert into bitacoraUsuario  values (:old.idUsuario,:old.idRol, :old.nombre,:old.apellido,:old.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'DELETE');
+end if;
+END tr_bitacoraUsuario;
 
 delete from usuario where idusuario = 21;
 
