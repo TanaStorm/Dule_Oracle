@@ -19,6 +19,9 @@
 
     <!-- Navbar -->
     <?php include_once('navbar.php'); ?>
+
+   <!-- NO comentar 17/08/21 -->
+   <?php include("php/showFactura2.php"); ?> 
     
 
     <!-- Carousel -->
@@ -40,9 +43,7 @@
     <section class="ftco-section ftco-cart">
     <?php
     if(!empty($_SESSION['CARRITO'])){
-
-
-    
+ 
     ?>
         <div class="container">
             <div class="row">
@@ -112,7 +113,19 @@ value="Eliminar"
                             <span>₡<?php echo number_format($total,2);?></span>
                         </p>
                     </div>
-                    <p class="text-center"><a href="checkout.php" class="btn btn-primary py-3 px-4">Pagar</a></p>
+                    <p class="text-center"><a href="checkout.php" class="btn btn-primary py-3 px-4" type="submit"  name ="btnPagar" id="btnPagar">Pagar</a></p>
+
+                     <!-- <input class="btn btn-primary py-3 px-4" type="submit"  value="Pagar" name="btnPagar" id="btnPagar" />  -->
+                     <!-- <button name ="btnPagar" 
+									  value="Pagar" 
+									  type="submit" 
+									  class="btn btn-primary py-3 px-4"
+									  id="btnPagar"
+									  >
+									  Agregar 
+									</button> -->
+
+
                 </div>
             </div>
         </div>

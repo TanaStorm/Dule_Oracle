@@ -1,39 +1,7 @@
 
-
 --Autor: Karen Delgado
 
 
---drop table usuario;
-
-
-CREATE TABLE usuario (
-    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
-	idRol NUMBER(10),
-	nombre VARCHAR2(50),
-	apellido VARCHAR2(50),
-	tel VARCHAR2(30),
-	email VARCHAR2(50),
-	contrasena VARCHAR2(255),
-	direccion VARCHAR2(255),
-	CONSTRAINT PK_usuario PRIMARY KEY (idUsuario)
-);
-
-select * from usuario;
-
---drop table  bitacoraUsuario cascade CONSTRAINTS;
-
-CREATE TABLE bitacoraUsuario (
-    idUsuario NUMBER,
-	idRol NUMBER(10),
-	nombre VARCHAR2(50),
-	apellido VARCHAR2(50),
-	tel VARCHAR2(30),
-	email VARCHAR2(50),
-	contrasena VARCHAR2(255),
-	direccion VARCHAR2(255),
-    FECHA DATE NULL,
-    ACCION VARCHAR2(12) NULL
-);
 
 select * from BitacoraUsuario;
 
@@ -53,7 +21,6 @@ EXCEPTION
 END tr_bitacoraUsuario;
 
 
-
 -----Test:
 UPDATE USUARIO
 SET direccion = 'Prueba'
@@ -63,5 +30,22 @@ WHERE idusuario = 1;
 delete from usuario 
 where idusuario = 2;
 
+
+
+CREATE OR REPLACE TRIGGER tr_tempfactura
+BEFORE INSERT ON TEMP_DETALLEFACTURA
+FOR EACH ROW
+BEGIN
+insert into TEMP_FACTURA  values (:new.idUsuario,:new.SubTotal,:new.SubTotal*0.13,:new.SubTotal*0.13 + :new.SubTotal, sysdate);
+END tr_tempfactura;
+
+
+
+CREATE OR REPLACE TRIGGER tr_factura
+BEFORE INSERT ON TEMP_FACTURA
+FOR EACH ROW
+BEGIN
+insert into FACTURA  values (:new.idUsuario,:new.SubTotal, sysdate);
+END tr_factura;
 
 

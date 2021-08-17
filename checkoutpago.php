@@ -27,18 +27,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12 ftco-animate">
+                <br>
+                <br>
 				<h3 class="heading mt-2">Muchas gracias por su compra</h3>
+                <p>Muy pronto le contactaremos para coordinar la entrega</p>
 				<a class="block-20" style="background-image: url('img/kate-trysh-s8u1Gv2uF3o-unsplash.jpg');">
                         </a>
-						<br>
-				<p>Muy pronto le contactaremos para coordinar la entrega</p>
-					
+						<br>					
 				</div>
-
-
-
-				
-			
+							
 			</div>
 		</div>
 

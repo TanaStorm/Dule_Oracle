@@ -20,7 +20,9 @@
 <body>
    <!-- Navbar -->
    <?php include_once('navbar.php'); ?>
-  <!-- <?php include("php/showFactura.php"); ?>  -->
+
+   <!-- NO comentar 17/08/21 -->
+   <?php include("php/showFactura.php"); ?> 
   
   <section class="ftco-section-shop"></section>
   <section class="ftco-section ">
@@ -63,6 +65,7 @@
 									  value="Agregar" 
 									  type="submit" 
 									  class="btn btn-primary"
+									  id="btnAccion"
 									  >
 									  Agregar 
 									</button>		

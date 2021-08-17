@@ -15,6 +15,9 @@
 <br>
 <br>
 <br>
+    <!-- No remover, es necesario para localizar el username -->
+	<?php include("php/showfactura.php"); ?>
+
 
 <body>
 <?php

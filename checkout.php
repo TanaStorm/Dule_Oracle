@@ -18,6 +18,7 @@
 <body>
    <!-- Navbar -->
    <?php include_once('navbar.php'); ?>
+
   <br>
   <br>
    <section class="ftco-section">
@@ -27,6 +28,8 @@
 			<div class="row">
 				<div class="col-xl-12 ftco-animate">
 					<form action="#" class="billing-form ftco-bg-dark p-3 p-md-5" id="formulario_pago">
+					<br>
+					<br>
 						<h3 class="mb-6 billing-heading">Información de pago y entrega</h3>
 						<br>
 						<div class="row align-items-end">
@@ -63,8 +66,9 @@
 							
 							<div class="w-100"></div>
 							<div class="col-md-12 text-center">
-								<!-- <input class="btn btn-warning py-3 px-4" type="submit"  value="Registrarme" name="registro" id="registro" /> -->
 								<button type="button" class="btn btn-warning py-3 px-4" name="button" id="pago" onclick="location.href='checkoutpago.php'" >Pagar</button>
+
+				
 							</div>
 
 						</div>

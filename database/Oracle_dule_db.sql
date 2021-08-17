@@ -80,14 +80,16 @@ CREATE TABLE temp_detalleFactura(
 	producto VARCHAR2(100) NOT NULL,
 	cantidad NUMBER(20) NOT NULL,
 	precioUnitario NUMBER (10,2) NOT NULL,
-	subTotal NUMBER (10,2) NOT NULL
+	subTotal NUMBER (10,2) NOT NULL,
+    fecha DATE default systimestamp
 );
 
 CREATE TABLE temp_factura(
 	idUsuario NUMBER(20) NOT NULL,
 	subTotal NUMBER (10,2) NOT NULL,
 	iva NUMBER (10,2) NOT NULL,
-	total NUMBER (10,2) NOT NULL
+	total NUMBER (10,2) NOT NULL,
+	fecha DATE default systimestamp
 );
 
 -----------------------------------------------------
@@ -95,10 +97,12 @@ CREATE TABLE temp_factura(
 CREATE TABLE factura(
 	idUsuario NUMBER(20) NOT NULL,
 	total NUMBER (10,2) NOT NULL,
-	fechaVenta DATE NOT NULL
+	fechaVenta DATE default systimestamp
 );
 
---BitacoraUsuarios (actualizado, eliminado)(Backend)
+--INSERT INTO factura2 VALUES (2,default);
+
+--BitacoraUsuarios 
 CREATE TABLE bitacoraUsuario (
     idUsuario NUMBER,
 	idRol NUMBER(10),
@@ -125,6 +129,7 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura1 FOREIGN 
 ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN KEY (subTotal) REFERENCES temp_detalleFactura (subTotal);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
+
 
 ---**************************** 2 FUNCIONES (Luis Navarro)
 
@@ -171,9 +176,42 @@ EXCEPTION
 	dbms_output.put_line('No se encontró ningún usuario con ese ID en la tabla USUARIO');
 END tr_bitacoraUsuario;
 
+
+CREATE OR REPLACE TRIGGER tr_tempfactura
+BEFORE INSERT ON TEMP_DETALLEFACTURA
+FOR EACH ROW
+BEGIN
+insert into TEMP_FACTURA  values (:new.idUsuario,:new.SubTotal,:new.SubTotal*0.13,:new.SubTotal*0.13 + :new.SubTotal, sysdate);
+END tr_tempfactura;
+
+
+
+CREATE OR REPLACE TRIGGER tr_factura
+BEFORE INSERT ON TEMP_FACTURA
+FOR EACH ROW
+BEGIN
+insert into FACTURA  values (:new.idUsuario,:new.SubTotal, sysdate);
+END tr_factura;
+
+--********************Procedimiento Registro de Usuarios (Karen Delgado)
+--registroController.php
+CREATE OR REPLACE PROCEDURE p_registroUsuario(
+    idUsuario IN NUMBER DEFAULT NULL,
+    idRol IN NUMBER,
+	nombre IN VARCHAR2,
+	apellido IN VARCHAR2,
+	tel IN VARCHAR2,
+	email IN VARCHAR2,
+	contrasena IN VARCHAR2,
+	direccion IN VARCHAR2
+) AS 
+BEGIN
+  INSERT INTO USUARIO VALUES (default,idRol, nombre, apellido,tel, email,contrasena,direccion);
+END p_registroUsuario;
+
 ---**************************** PROCEDURES + Cursor (Esteban Salas) 
 
---Login
+--Login.php
 CREATE OR REPLACE PROCEDURE p_login_DULE (V_EMAIL IN VARCHAR2, V_PASSWORD IN VARCHAR2, V_COUNT OUT NUMBER)  AS
 CURSOR c_count_login IS SELECT COUNT(*) FROM USUARIO u
 WHERE u.email=V_EMAIL AND u.contrasena=V_PASSWORD;
