@@ -87,9 +87,7 @@ name="btnAccion"
 value="Eliminar"
 >Eliminar</td>
 
-</form>
-
-                                    
+</form>                                   
                                 </tr>
 
 

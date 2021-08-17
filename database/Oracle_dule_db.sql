@@ -100,7 +100,7 @@ CREATE TABLE factura(
 
 --BitacoraUsuarios (actualizado, eliminado)(Backend)
 CREATE TABLE bitacoraUsuario (
-    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
+    idUsuario NUMBER,
 	idRol NUMBER(10),
 	nombre VARCHAR2(50),
 	apellido VARCHAR2(50),
@@ -108,7 +108,8 @@ CREATE TABLE bitacoraUsuario (
 	email VARCHAR2(50),
 	contrasena VARCHAR2(255),
 	direccion VARCHAR2(255),
-	flag VARCHAR2(255)
+    fecha DATE NULL,
+    ACCION VARCHAR2(12) NULL
 );
 
 --Crear los FK hasta tener la version final de las tablas
@@ -125,7 +126,7 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN 
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
 
----**************************** FUNCIONES (Luis Navarro)
+---**************************** 2 FUNCIONES (Luis Navarro)
 
 --1. Calculo de Precio de producto x la cantidad. (Modificar codigo en cart.php)
 CREATE OR REPLACE FUNCTION sumaTotal  
@@ -152,21 +153,25 @@ end loop;
 END;  
 
 
----**************************** TRIGGERS (Karen Delgado)
---ADD or UPDATE
- CREATE TABLE bitacoraUsuario (
-    idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
-	idRol NUMBER(10),
-	nombre VARCHAR2(50),
-	apellido VARCHAR2(50),
-	tel VARCHAR2(30),
-	email VARCHAR2(50),
-	contrasena VARCHAR2(255),
-	direccion VARCHAR2(255),
-	flag VARCHAR2(255)
-);
 
----**************************** PROCEDURES (Esteban Salas) + Cursor
+---**************************** Trigger + Exception (Karen Delgado)
+--DELETE or UPDATE USERS
+
+CREATE OR REPLACE TRIGGER tr_bitacoraUsuario
+AFTER UPDATE OR DELETE ON USUARIO
+FOR EACH ROW
+BEGIN
+if updating then
+insert into bitacoraUsuario  values (:old.idUsuario,:new.idRol, :new.nombre,:new.apellido,:new.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'UPDATE');
+Elsif deleting then
+insert into bitacoraUsuario  values (:old.idUsuario,:old.idRol, :old.nombre,:old.apellido,:old.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'DELETE');
+end if;	
+EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+	dbms_output.put_line('No se encontró ningún usuario con ese ID en la tabla USUARIO');
+END tr_bitacoraUsuario;
+
+---**************************** PROCEDURES + Cursor (Esteban Salas) 
 
 --Login
 CREATE OR REPLACE PROCEDURE p_login_DULE (V_EMAIL IN VARCHAR2, V_PASSWORD IN VARCHAR2, V_COUNT OUT NUMBER)  AS
@@ -178,4 +183,4 @@ FETCH c_count_login INTO V_COUNT;
 CLOSE c_count_login;
 END;
 
---Exceptions
+

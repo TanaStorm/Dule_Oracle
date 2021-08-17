@@ -1,4 +1,9 @@
-drop table usuario;
+
+
+--Autor: Karen Delgado
+
+
+--drop table usuario;
 
 
 CREATE TABLE usuario (
@@ -15,7 +20,7 @@ CREATE TABLE usuario (
 
 select * from usuario;
 
-drop table  bitacoraUsuario cascade CONSTRAINTS;
+--drop table  bitacoraUsuario cascade CONSTRAINTS;
 
 CREATE TABLE bitacoraUsuario (
     idUsuario NUMBER,
@@ -41,11 +46,22 @@ if updating then
 insert into bitacoraUsuario  values (:old.idUsuario,:new.idRol, :new.nombre,:new.apellido,:new.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'UPDATE');
 Elsif deleting then
 insert into bitacoraUsuario  values (:old.idUsuario,:old.idRol, :old.nombre,:old.apellido,:old.tel,:old.email,:old.contrasena,:old.direccion, sysdate, 'DELETE');
-end if;
+end if;	
+EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+	dbms_output.put_line('No se encontró ningún usuario con ese ID en la tabla USUARIO');
 END tr_bitacoraUsuario;
 
-delete from usuario where idusuario = 21;
 
+
+-----Test:
+UPDATE USUARIO
+SET direccion = 'Prueba'
+WHERE idusuario = 1;
+
+
+delete from usuario 
+where idusuario = 2;
 
 
 
