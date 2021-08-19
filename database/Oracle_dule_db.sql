@@ -6,6 +6,8 @@
 
 /*Create tables*/
 
+USE DATABASE DULE
+
 CREATE TABLE usuario (
     idUsuario NUMBER GENERATED ALWAYS AS IDENTITY,
 	idRol NUMBER(10),
@@ -129,34 +131,8 @@ ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura1 FOREIGN 
 ALTER TABLE temp_factura ADD CONSTRAINT tempFactura_tempDetalleFactura2 FOREIGN KEY (subTotal) REFERENCES temp_detalleFactura (subTotal);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura1 FOREIGN KEY (idUsuario) REFERENCES temp_factura (idUsuario);
 ALTER TABLE factura ADD CONSTRAINT fk_factura_temp_factura2 FOREIGN KEY (total) REFERENCES temp_factura (total);
-
-
----**************************** 2 FUNCIONES (Luis Navarro)
-
---1. Calculo de Precio de producto x la cantidad. (Modificar codigo en cart.php)
-CREATE OR REPLACE FUNCTION sumaTotal  
-RETURN number IS  
-   total number:= 0;  
-BEGIN  
-   SELECT sum(cantidad*preciounitario) into total  
-   FROM temp_detallefactura;  
-    RETURN total;  
-END;  
-
---2. Suma total de los productos (Modificar codigo en cart.php)
-CREATE OR REPLACE FUNCTION totalMonto
-RETURN number IS  
-   total number(2);  
-begin
-
-for c in (SELECT cantidad*preciounitario into total  
-   FROM temp_detallefactura)
-
-loop
-    RETURN total;  
-end loop;
-END;  
-
+ALTER TABLE temp_detalleFactura ADD CONSTRAINT fk_detalleFactura FOREIGN KEY (idUsuario) REFERENCES temp_Factura (idUsuario);
+ALTER TABLE temp_Factura ADD CONSTRAINT fk_detalleFactura FOREIGN KEY (idUsuario) REFERENCES Factura (idUsuario);
 
 
 ---**************************** Trigger + Exception (Karen Delgado)
@@ -221,4 +197,28 @@ FETCH c_count_login INTO V_COUNT;
 CLOSE c_count_login;
 END;
 
+---**************************** FUNCIONES (Luis Navarro)
 
+--1. Calculo de Precio de producto x la cantidad. (Modificar codigo en cart.php)
+CREATE OR REPLACE FUNCTION sumaTotal  
+RETURN number IS  
+   total number:= 0;  
+BEGIN  
+   SELECT sum(cantidad*preciounitario) into total  
+   FROM temp_detallefactura;  
+    RETURN total;  
+END;  
+
+--2. Suma total de los productos (Modificar codigo en cart.php)
+CREATE OR REPLACE FUNCTION totalMonto
+RETURN number IS  
+   total number(2);  
+begin
+
+for c in (SELECT cantidad*preciounitario into total  
+   FROM temp_detallefactura)
+
+loop
+    RETURN total;  
+end loop;
+END;
